@@ -5,8 +5,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
   
-   <!-- 🖼️ [แก้ได้] เปลี่ยน favicon / app icon โดยแก้ URL ในทั้ง 3 บรรทัดนี้ -->
-  <link rel="apple-touch-icon" href="https://i.ibb.co/4RBsGfGJ/icon-01.png">
+   <link rel="apple-touch-icon" href="https://i.ibb.co/4RBsGfGJ/icon-01.png">
   <link rel="icon" sizes="192x192" href="https://i.ibb.co/4RBsGfGJ/icon-01.png">
   <link rel="shortcut icon" href="https://i.ibb.co/4RBsGfGJ/icon-01.png">
 
@@ -44,18 +43,18 @@
     // 🎨 📝 โน้ตสี: ตัวแปรหลักที่ใช้ควบคุมสีทั้งหมดในเว็บ
     // ==========================================
     const COLORS = {
-      blue: '#fdedee',      // สีของป้ายสถานะหรือพื้นหลังอ่อนๆ
-      pink: '#fddfe7',      // สีหลักของกลีบดอกไม้ และพื้นหลังบางจุด
-      purple: '#fffafc',    // สีไฮไลท์จุดสว่าง
-      orange: '#fffae7',    // สีเกสรดอกไม้ และสีขอบ
-      bg: '#fdedee',        // สีพื้นหลังรวมของหน้าเว็บทั้งหมด
-      white: '#fffbf0',     // สีขาว (การ์ด, ตัวอักษรบนพื้นเข้ม)
-      textMain: '#f9bcce', // สีตัวอักษรหลัก (Headings, ตัวเลขใหญ่ๆ)
-      textSoft: '#fbd3de', // สีตัวอักษรรอง (Subtext)
-      pinkDeep: '#f7afc5', // สีเน้น (ปุ่ม, จุดที่ต้องการให้เด่น)
-      blueDeep: '#f7afc5', // สีตัวอักษรบนป้ายสถานะที่ต้องการความคมชัด
-      purpleDeep: '#f7afc5', // สีตัวเลขเปอร์เซ็นต์ % หรือป้าย Channel
-      orangeDeep: '#f7afc5', // สีปุ่มกด, แถบสถานะ Channel
+      blue: '#fdedee',      
+      pink: '#fddfe7',      
+      purple: '#fffafc',    
+      orange: '#fffae7',    
+      bg: '#fdedee',        
+      white: '#fffbf0',     
+      textMain: '#f9bcce', 
+      textSoft: '#fbd3de', 
+      pinkDeep: '#f7afc5', 
+      blueDeep: '#f7afc5', 
+      purpleDeep: '#f7afc5', 
+      orangeDeep: '#f7afc5', 
     };
 
     const formatDriveLink = (url) => {
@@ -136,52 +135,61 @@
       </div>
     ));
 
-    const ProgressFlower = React.memo(({ progress, todayTasksLength, doneToday, triggerFlowerBounce, isBouncing }) => {
-      const bloomScale = Math.max(0.2, progress / 100);
-      const isFullBloom = progress === 100 && todayTasksLength > 0;
-      const petals = [0, 72, 144, 216, 288].map(angle => {
-        const rad = (angle * Math.PI) / 180;
-        return { cx: 50 + 15 * Math.sin(rad), cy: 50 - 15 * Math.cos(rad), r: 18 };
-      });
+    // ==========================================
+    // ❤️ Progress Heart Component
+    // ==========================================
+    const ProgressHeart = React.memo(({ progress, todayTasksLength, doneToday, triggerFlowerBounce, isBouncing }) => {
+      // คำนวณระดับน้ำ (0% = Y: 95, 100% = Y: 15)
+      const liquidY = 95 - (progress / 100) * 80;
 
       return (
         <div onClick={triggerFlowerBounce} className={`bg-white/80 backdrop-blur-sm rounded-[28px] p-3 flex flex-col items-center justify-center shadow-lg shadow-[#fddfe7]/20 border border-white h-full relative overflow-hidden transition-all duration-300 cursor-pointer ${isBouncing ? 'scale-95' : 'hover:scale-[1.02]'}`}>
-          <div className="absolute top-2 left-3 text-[8px] font-black text-purpleDeep uppercase tracking-tighter opacity-70" style={{ color: COLORS.purpleDeep }}>ความสำเร็จวันนี้</div>
+          <div className="absolute top-2 left-3 text-[8px] font-black uppercase tracking-tighter opacity-80 text-[#f7afc5]">
+            ความสำเร็จวันนี้
+          </div>
+          
           <div className="relative w-full h-20 flex items-center justify-center mt-2">
             {progress > 0 && (
-              <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute top-1/2 left-1/4 w-1.5 h-1.5 bg-[#fddfe7] rounded-full animate-float-particle-1 opacity-60"></div>
-                  <div className="absolute top-2/3 right-1/4 w-2 h-2 bg-[#f6a3bd] rounded-full animate-float-particle-2 opacity-60"></div>
-                  <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-[#FCF6DE] rounded-full animate-float-particle-3 opacity-60"></div>
+              <div className="absolute inset-0 pointer-events-none z-0">
+                <div className="absolute top-1/4 left-[15%] w-1.5 h-1.5 rounded-full animate-float-particle-1 opacity-80 bg-[#f9bcce]"></div>
+                <div className="absolute top-1/3 right-[15%] w-2 h-2 rounded-full animate-float-particle-2 opacity-80 bg-[#fbd3de]"></div>
+                <div className="absolute bottom-1/4 left-1/3 w-1 h-1 rounded-full animate-float-particle-3 opacity-80 bg-[#f7afc5]"></div>
               </div>
             )}
-            <svg viewBox="0 0 100 100" className="w-20 h-20 overflow-visible">
-              <g transform="translate(50, 50)">
-                  <g className="animate-breathe">
-                    <g transform={`scale(${bloomScale})`} className="transition-transform duration-1000 cubic-bezier(0.34, 1.56, 0.64, 1)">
-                      <g transform="translate(-50, -50)">
-                        {petals.map((p, i) => (
-                          <circle key={i} cx={p.cx} cy={p.cy} r={p.r} fill={COLORS.pink} opacity="0.95" className="transition-all duration-700"/>
-                        ))}
-                        <circle cx="50" cy="50" r="14" fill={COLORS.orange} className="transition-all duration-700" />
-                        
-                        {isFullBloom && (
-                          <g transform="translate(50, 50)" className="animate-fade-in">
-                            <path d="M -5 -1 Q -3 -3 -1 -1" fill="none" stroke="#1E3A5F" strokeWidth="1.2" strokeLinecap="round" />
-                            <path d="M 1 -1 Q 3 -3 5 -1" fill="none" stroke="#1E3A5F" strokeWidth="1.2" strokeLinecap="round" />
-                            <path d="M -1.5 2 Q 0 4 1.5 2" fill="none" stroke="#1E3A5F" strokeWidth="1.2" strokeLinecap="round" />
-                            <ellipse cx="-6" cy="1" rx="1.5" ry="1" fill="#fbd3de" opacity="0.6"/>
-                            <ellipse cx="6" cy="1" rx="1.5" ry="1" fill="#fbd3de" opacity="0.6"/>
-                          </g>
-                        )}
-                      </g>
+            
+            <svg viewBox="0 0 100 100" className="w-16 h-16 overflow-visible animate-breathe relative z-10">
+              <defs>
+                <clipPath id="heartClip">
+                  <path d="M 50 86 C 40 86 5 58 5 30 C 5 10 35 5 50 25 C 65 5 95 10 95 30 C 95 58 60 86 50 86 Z" />
+                </clipPath>
+              </defs>
+              
+              {/* ขอบและพื้นหลังหัวใจว่างเปล่า */}
+              <path d="M 50 86 C 40 86 5 58 5 30 C 5 10 35 5 50 25 C 65 5 95 10 95 30 C 95 58 60 86 50 86 Z" fill="#fbd3de" fillOpacity="0.2" stroke="#f9bcce" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+              
+              <g clipPath="url(#heartClip)">
+                {progress > 0 && (
+                  <g style={{ transform: `translateY(${liquidY}px)`, transition: 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)' }}>
+                    <g className="animate-wave-reverse">
+                      <path d="M 0 5 C 15 15, 35 -5, 50 5 C 65 15, 85 -5, 100 5 C 115 15, 135 -5, 150 5 C 165 15, 185 -5, 200 5 L 200 100 L 0 100 Z" fill="#fbd3de" opacity="0.6" />
+                    </g>
+                    <g className="animate-wave">
+                      <path d="M 0 0 C 15 -15, 35 15, 50 0 C 65 -15, 85 15, 100 0 C 115 -15, 135 15, 150 0 C 165 -15, 185 15, 200 0 L 200 100 L 0 100 Z" fill="#f9bcce" opacity="0.95" />
+                    </g>
+                    <g fill="#ffffff" opacity="0.8">
+                      <circle cx="30" cy="80" r="1.5" className="animate-bubble-1" />
+                      <circle cx="55" cy="90" r="2.5" className="animate-bubble-2" />
+                      <circle cx="75" cy="85" r="1" className="animate-bubble-3" />
+                      <circle cx="40" cy="95" r="2" className="animate-bubble-4" />
                     </g>
                   </g>
+                )}
               </g>
             </svg>
           </div>
-          <div className="mt-1 flex items-center gap-1 bg-white/60 px-2 py-0.5 rounded-full border border-white z-10">
-            <span className="text-xs font-black" style={{ color: COLORS.purpleDeep }}>{progress}%</span>
+          
+          <div className="mt-1 flex items-center gap-1 bg-white/60 px-2 py-0.5 rounded-full border border-white z-10 shadow-sm">
+            <span className="text-xs font-black text-[#f7afc5]">{progress}%</span>
             <div className="w-1 h-1 rounded-full bg-[#FCF6DE]"></div>
             <span className="text-[8px] font-bold text-gray-400 uppercase">{doneToday} / {todayTasksLength} งาน</span>
           </div>
@@ -612,7 +620,8 @@
                       <CompactStats isAdmin={isAdmin} selectedNextDate={selectedNextDate} nextQueueDate={nextQueueDate} handleSetManualDate={handleSetManualDate} waitingCount={waitingCount} />
                     </div>
                     <div className="flex-1">
-                      <ProgressFlower progress={progress} todayTasksLength={todayTasks.length} doneToday={doneToday} triggerFlowerBounce={triggerFlowerBounce} isBouncing={isBouncing} />
+                      {/* ProgressHeart เปลี่ยนแล้ว */}
+                      <ProgressHeart progress={progress} todayTasksLength={todayTasks.length} doneToday={doneToday} triggerFlowerBounce={triggerFlowerBounce} isBouncing={isBouncing} />
                     </div>
                   </div>
                   <div className="flex items-center justify-between mb-2.5 ml-1">
@@ -837,6 +846,9 @@
             @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
             @keyframes text-wave { 0%, 20%, 100% { transform: translateY(0px); } 10% { transform: translateY(-5px); } }
             @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+            @keyframes wave { 0% { transform: translateX(0); } 100% { transform: translateX(-100px); } }
+            @keyframes wave-reverse { 0% { transform: translateX(-100px); } 100% { transform: translateX(0); } }
+            @keyframes bubble-rise { 0% { transform: translateY(0) scale(1); opacity: 0; } 20% { opacity: 0.8; } 80% { opacity: 0.8; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }
             
             .animate-text-wave { animation: text-wave 4s ease-in-out infinite; }
             .animate-breathe { animation: breathe 4s ease-in-out infinite; transform-origin: center; }
@@ -849,6 +861,12 @@
             .animate-slideUp { animation: slideUp 0.3s ease-out; }
             .animate-fadeIn { animation: fadeIn 0.4s ease-out; }
             .animate-spin-slow { animation: spin-slow 4s linear infinite; }
+            .animate-wave { animation: wave 3.5s linear infinite; }
+            .animate-wave-reverse { animation: wave-reverse 4.5s linear infinite; }
+            .animate-bubble-1 { animation: bubble-rise 3s infinite linear; }
+            .animate-bubble-2 { animation: bubble-rise 4s infinite linear 1s; }
+            .animate-bubble-3 { animation: bubble-rise 3.5s infinite linear 0.5s; }
+            .animate-bubble-4 { animation: bubble-rise 4.5s infinite linear 2s; }
           `}</style>
         </div>
       );
