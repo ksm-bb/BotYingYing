@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <base target="_top">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -345,8 +346,8 @@
           {/* 💧 หลอดเปอร์เซ็นต์ความคืบหน้า (ลากกระต่ายเพื่อเปลี่ยนสถานะ) */}
           <div className="flex items-center gap-2 mt-2.5">
             <div className="flex-1 relative">
-              <div ref={trackRef} className="relative w-full rounded-full overflow-hidden bg-white" style={{ height: '15px', border: `1.5px solid ${COLORS.pinkDeep}` }}>
-                <div className="relative h-full rounded-full overflow-hidden ease-out" style={{ width: `${livePercent}%`, background: 'linear-gradient(90deg, #fffae7 0%, #fddfe7 100%)', transition: isDragging ? 'none' : 'width 0.7s ease-out' }}>
+              <div ref={trackRef} className="relative w-full rounded-full overflow-hidden bg-white" style={{ height: '15px', border: '1.5px solid #fbd8e2' }}>
+                <div className="relative h-full rounded-full overflow-hidden ease-out" style={{ width: `${livePercent}%`, background: 'linear-gradient(90deg, #fffdf5 0%, #fdeef3 100%)', transition: isDragging ? 'none' : 'width 0.7s ease-out' }}>
                   {livePercent > 0 && (
                     <>
                       <span className="tube-bubble" style={{ left: '12%', width: '3px', height: '3px', animationDelay: '0s', animationDuration: '2.4s' }}></span>
